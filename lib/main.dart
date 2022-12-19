@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
+// import 'package:flutter_contacts/flutter_contacts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +33,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PermissionStatus? per;
-  Contact? contact;
+
+  // Contact? contact;
 
   void _incrementCounter() async {
     per = await Permission.contacts.status;
@@ -42,7 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String phoneNumber = '';
-TextEditingController controller = TextEditingController();
+  TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,10 +68,14 @@ TextEditingController controller = TextEditingController();
               onPressed: () async {
                 final req = await Permission.contacts.request();
                 if (req.isDenied == false) {
-                  final contact = await FlutterContacts.openExternalPick();
+                  FlutterContactPicker.requestPermission();
+                  final PhoneContact contact =
+                      await FlutterContactPicker.pickPhoneContact();
+
+                  // final contact = await FlutterContacts.openExternalPick();
                   debugPrint(
-                      'FlutterContacts.openExternalPick ${contact?.phones[0].number}');
-                  controller.text = contact?.phones[0].number ?? '';
+                      'FlutterContacts.openExternalPick ${contact.phoneNumber?.number ?? ''}');
+                  controller.text = contact.phoneNumber?.number ?? '';
 
                   // setState(() {});
                   // ContactsService.openDeviceContactPicker()

@@ -39,6 +39,7 @@ dependencies:
   contacts_service: 0.6.3
   permission_handler: 10.2.0
   flutter_contacts: 1.1.5+1
+  fluttercontactpicker: 4.7.0
 
 dev_dependencies:
   flutter_test:
