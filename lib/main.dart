@@ -41,6 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  String phoneNumber = '';
+TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,8 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'permission status ',
+            TextFormField(
+              controller: controller,
+            ),
+            Text(
+              'permission status $phoneNumber',
               // style: Theme.of(context).textTheme.headline6,
             ),
             ElevatedButton(
@@ -63,7 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   final contact = await FlutterContacts.openExternalPick();
                   debugPrint(
                       'FlutterContacts.openExternalPick ${contact?.phones[0].number}');
-                  await contact?.delete();
+                  controller.text = contact?.phones[0].number ?? '';
+
+                  // setState(() {});
                   // ContactsService.openDeviceContactPicker()
                   //     .then((Contact? value) {
                   //   contact = value ?? contact;
